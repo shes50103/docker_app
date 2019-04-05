@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    networks:
+      - johnson
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db/postgres
+      - SECRET_KEY_BASE=8527f4cd4df56c3f41d8dc27251c09a55ed872eb299d230da758a05ee399b20ed655c33cf3039eccd59cf787cfb05ebe2b3e5a0b1811ad9d14163d0ee48f5f39
+      - RAILS_SERVE_STATIC_FILES=true
+    networks:
+      - johnson
+    depends_on:
+      - db
+
+networks:
+  johnson:
