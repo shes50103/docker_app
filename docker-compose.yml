@@ -24,12 +24,20 @@ services:
     image: johnsonzhan121/docker_nginx:latest
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - johnson
     volumes:
       - /tmp/sockets:/app/tmp/sockets
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     depends_on:
       - app
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
 
 networks:
   johnson:
