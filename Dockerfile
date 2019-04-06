@@ -1,6 +1,6 @@
-FROM ruby:2.5.1
+FROM ruby:2.5.1-alpine
 MAINTAINER johnson <johnson@5xruby.tw>
-RUN apt-get update && apt-get install -y build-essential libpq-dev nodejs vim postgis imagemagick
+RUN apk update && apk upgrade && apk add --update --no-cache build-base nodejs imagemagick postgresql-dev
 RUN mkdir /app
 WORKDIR /app
 COPY Gemfile /app/Gemfile
